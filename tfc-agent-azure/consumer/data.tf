@@ -5,8 +5,8 @@ data "azurerm_resource_group" "main" {
 
 data "azurerm_virtual_network" "main" {
   name                = "${var.prefix}-w3-vnet"
-  address_space       = ["10.0.0.0/16"]
-  location            = data.azurerm_resource_group.main.location
+  #address_space       = ["10.0.0.0/16"]
+  #location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
 }
 
