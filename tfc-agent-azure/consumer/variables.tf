@@ -5,7 +5,6 @@ variable "location" {
 
 variable "password" {
   description = "The admin password for the instance (subject to complexity requirements)."
-  default     = "SuperSecret!!"
 }
 
 variable "prefix" {
@@ -18,7 +17,6 @@ variable "subscription_id" {
 
 variable "username" {
   description = "The admin username for the instance."
-  default     = "admin"
 }
 
 variable "az_clientID" {
