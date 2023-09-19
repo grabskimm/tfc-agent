@@ -23,12 +23,12 @@ variable "username" {
 
 variable "az_clientID" {
   description = "The admin username for the instance."
-  sensetive   = true
+  sensitive   = true
 }
 
 variable "az_secret" {
   description = "The admin username for the instance."
-  sensetive   = true
+  sensitive   = true
 }
 
 variable "az_tenant" {
