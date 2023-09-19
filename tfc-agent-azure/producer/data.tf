@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "main" {
-  name     = "${var.prefix}-w3-net-rg"
+  name     = "${var.prefix}-net-rg"
 }
 
 data "azurerm_virtual_network" "main" {
