@@ -93,8 +93,8 @@ resource "azurerm_role_assignment" "tfc-agent-role" {
 # from here to EOF is optional, for azure function autoscaler
 resource "azurerm_storage_account" "storage_account" {
   name                     = "tfcagentwebhooksa"
-  resource_group_name      = data.azurerm_resource_group.rg.name
-  location                 = data.azurerm_resource_group.rg.location
+  resource_group_name      = data.azurerm_resource_group.main.name
+  location                 = data.azurerm_resource_group.main.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
@@ -124,8 +124,8 @@ data "azurerm_storage_account_blob_container_sas" "storage_account_blob_containe
 
 resource "azurerm_app_service_plan" "app_service_plan" {
   name                = "tfc-agent-webhook-app-service-plan"
-  resource_group_name = data.azurerm_resource_group.rg.name
-  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.main.name
+  location            = data.azurerm_resource_group.main.location
   kind                = "FunctionApp"
   reserved            = "true"
   sku {
@@ -154,8 +154,8 @@ resource "random_id" "function_name_suffix" {
 
 resource "azurerm_function_app" "function_app" {
   name                = "tfc-agent-webhook-function-app-${random_id.function_name_suffix.hex}"
-  resource_group_name = data.azurerm_resource_group.rg.name
-  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.main.name
+  location            = data.azurerm_resource_group.main.location
   app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
   app_settings = {
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.appinsights.instrumentation_key,
@@ -188,8 +188,8 @@ resource "azurerm_function_app" "function_app" {
 
 resource "azurerm_application_insights" "appinsights" {
   name                = "tfc-agent-webhook-app-insights"
-  location            = data.azurerm_resource_group.rg.location
-  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.main.location
+  resource_group_name = data.azurerm_resource_group.main.name
   application_type    = "other"
 }
 
