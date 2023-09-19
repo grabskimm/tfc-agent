@@ -11,7 +11,7 @@ data "azurerm_virtual_network" "main" {
 }
 
 data "azurerm_subnet" "internal" {
-  name                 = "${var.prefix}-snet-tools"
+  name                 = "${var.prefix}-w3-snet-tools"
   resource_group_name  = data.azurerm_resource_group.main.name
   virtual_network_name = data.azurerm_virtual_network.main.name
   #address_prefixes     = ["10.0.16.0/20"]
