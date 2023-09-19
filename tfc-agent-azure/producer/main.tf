@@ -27,10 +27,10 @@ resource "azurerm_container_group" "tfc-agent" {
     memory = "2.0"
 
     # this field seems to be mandatory (error happens if not there). See https://github.com/terraform-providers/terraform-provider-azurerm/issues/1697#issuecomment-608669422
-    #ports {
-    #  port     = 80
-    #  protocol = "TCP"
-    #}
+    ports {
+      port     = 443
+      protocol = "TCP"
+    }
 
     environment_variables = {
       TFC_AGENT_SINGLE = "True"
