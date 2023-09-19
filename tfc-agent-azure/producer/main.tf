@@ -186,11 +186,20 @@ resource "azurerm_function_app" "function_app" {
   version                    = "~3"
 }
 
+resource "azurerm_log_analytics_workspace" "workspace" {
+  name                = "tfc-agent-log-workspace"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
 resource "azurerm_application_insights" "appinsights" {
   name                = "tfc-agent-webhook-app-insights"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
-  application_type    = "other"
+  workspace_id        = azurerm_log_analytics_workspace.workspace.id
+  application_type    = "web"
 }
 
 # give function permission to modify container group
