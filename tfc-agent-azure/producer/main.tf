@@ -81,9 +81,11 @@ resource "azurerm_container_group" "tfc-agent" {
   }
 }
 
+data "azurerm_subscription" "primary" {}
+
 # you'll need to customize IAM policies to access resources as desired
 resource "azurerm_role_assignment" "tfc-agent-role" {
-  scope                = var.subscription_id
+  scope                = data.azurerm_subscription.primary.id
   role_definition_name = "Contributor"
   principal_id         = azurerm_container_group.tfc-agent.identity[0].principal_id
 }
