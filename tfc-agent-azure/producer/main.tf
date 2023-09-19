@@ -57,7 +57,7 @@ resource "azurerm_container_group" "tfc-agent" {
   os_type             = "Linux"
   restart_policy      = "Always"
 
-  network_profile_id = {
+  network_profile = {
     id = data.azurerm_subnet.internal.id
   }
 
