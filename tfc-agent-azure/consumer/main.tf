@@ -1,4 +1,9 @@
 provider "azurerm" {
+
+  client_id       = var.az_clientID
+  client_secret   = var.az_secret
+  tenant_id       = var.az_tenant
+
   features {}
 
   # These may also be provided as environment variables
