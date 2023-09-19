@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source = "hashicorp/azurerm"
-      version = "3.73.0"
-    }
-  }
-}
-
 provider "azurerm" {
 
   client_id       = var.az_clientID
