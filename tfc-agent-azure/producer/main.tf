@@ -1,3 +1,16 @@
+terraform {
+  required_version = ">= 0.10.0"
+
+  required_providers {
+
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "3.73.0"
+    }
+  }
+
+}
+
 provider "azurerm" {
 
   client_id       = var.az_clientID
@@ -55,7 +68,7 @@ resource "azurerm_container_group" "tfc-agent" {
   os_type             = "Linux"
   restart_policy      = "Always"
   ip_address_type     = "Private"
-  #24subnet_ids          = [ data.azurerm_subnet.internal.id ]
+  subnet_ids          = [ data.azurerm_subnet.internal.id ]
 
 
   container {
