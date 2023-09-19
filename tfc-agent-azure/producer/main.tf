@@ -50,8 +50,8 @@ resource "azurerm_linux_virtual_machine" "main" {
 
 resource "azurerm_container_group" "tfc-agent" {
   name                = "tfc-agent"
-  location            = data.azurerm_resource_group.rg.location
-  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.main.location
+  resource_group_name = data.azurerm_resource_group.main.name
   os_type             = "Linux"
   restart_policy      = "Always"
 
@@ -163,7 +163,7 @@ resource "azurerm_function_app" "function_app" {
     "AzureWebJobsDisableHomepage"    = "true",
     "CONTAINER_GROUP"                = azurerm_container_group.tfc-agent.name
     "FUNCTIONS_WORKER_RUNTIME"       = "python",
-    "RESOURCE_GROUP"                 = data.azurerm_resource_group.rg.name
+    "RESOURCE_GROUP"                 = data.azurerm_resource_group.main.name
     "SALT"                           = var.notification_token,
     "WEBSITE_RUN_FROM_PACKAGE"       = "https://${azurerm_storage_account.storage_account.name}.blob.core.windows.net/${azurerm_storage_container.storage_container.name}/${azurerm_storage_blob.storage_blob.name}${data.azurerm_storage_account_blob_container_sas.storage_account_blob_container_sas.sas}",
   }
