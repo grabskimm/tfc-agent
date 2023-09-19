@@ -9,7 +9,7 @@ provider "azurerm" {
 
 data "azurerm_resource_group" "main" {
   name     = "${var.prefix}-w3-net-rg"
-  location = var.location
+  #location = var.location
 }
 
 data "azurerm_virtual_network" "main" {
