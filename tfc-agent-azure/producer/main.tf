@@ -55,7 +55,7 @@ resource "azurerm_container_group" "tfc-agent" {
   os_type             = "Linux"
   restart_policy      = "Always"
   ip_address_type     = "Private"
-  subnet_ids          = [ data.azurerm_subnet.internal.id ]
+  #24subnet_ids          = [ data.azurerm_subnet.internal.id ]
 
 
   container {
