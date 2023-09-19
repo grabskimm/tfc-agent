@@ -7,29 +7,29 @@ provider "azurerm" {
   use_msi         = true
 }
 
-resource "azurerm_resource_group" "main" {
-  name     = "${var.prefix}-resources"
+data "azurerm_resource_group" "main" {
+  name     = "${var.prefix}-w3-net-rg"
   location = var.location
 }
 
-resource "azurerm_virtual_network" "main" {
-  name                = "${var.prefix}-network"
-  address_space       = ["10.0.0.0/22"]
+data "azurerm_virtual_network" "main" {
+  name                = "${var.prefix}-w3-vnet"
+  address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
 }
 
-resource "azurerm_subnet" "internal" {
-  name                 = "internal"
+data "azurerm_subnet" "internal" {
+  name                 = "${var.prefix}-snet-tools"
   resource_group_name  = azurerm_resource_group.main.name
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes     = ["10.0.2.0/24"]
+  address_prefixes     = ["10.0.16.0/20"]
 }
 
 resource "azurerm_network_interface" "main" {
-  name                = "${var.prefix}-nic"
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
+  name                = "${var.prefix}-tfc-agent-nic"
+  resource_group_name = data.azurerm_resource_group.main.name
+  location            = data.azurerm_resource_group.main.location
 
   ip_configuration {
     name                          = "internal"
@@ -40,8 +40,8 @@ resource "azurerm_network_interface" "main" {
 
 resource "azurerm_linux_virtual_machine" "main" {
   name                            = "${var.prefix}-vm"
-  resource_group_name             = azurerm_resource_group.main.name
-  location                        = azurerm_resource_group.main.location
+  resource_group_name             = data.azurerm_resource_group.main.name
+  location                        = data.azurerm_resource_group.main.location
   size                            = "Standard_B1s"
   admin_username                  = var.username
   admin_password                  = var.password
