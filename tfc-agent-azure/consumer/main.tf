@@ -25,21 +25,20 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_linux_virtual_machine" "main" {
-  name                            = "${var.prefix}-vm"
+  name                            = "${var.prefix}-tfc-agent-vm"
   resource_group_name             = data.azurerm_resource_group.main.name
   location                        = data.azurerm_resource_group.main.location
   size                            = "Standard_B1s"
   admin_username                  = var.username
   admin_password                  = var.password
   disable_password_authentication = false
-  network_interface_ids = [
-    azurerm_network_interface.main.id,
-  ]
+
+  network_interface_ids = [ azurerm_network_interface.main.id ]
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts-gen2"
     version   = "latest"
   }
 
