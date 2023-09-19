@@ -1,6 +1,6 @@
 variable "location" {
   description = "The Azure Region in which all resources in this example should be created."
-  default     = "West US 2"
+  default     = "West US 3"
 }
 
 variable "password" {
@@ -19,4 +19,18 @@ variable "subscription_id" {
 variable "username" {
   description = "The admin username for the instance."
   default     = "admin"
+}
+
+variable "az_clientID" {
+  description = "The admin username for the instance."
+  sensetive   = true
+}
+
+variable "az_secret" {
+  description = "The admin username for the instance."
+  sensetive   = true
+}
+
+variable "az_tenant" {
+  description = "The admin username for the instance."
 }
