@@ -53,9 +53,13 @@ resource "azurerm_container_group" "tfc-agent" {
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   ip_address_type     = "Private"
-  subnet_ids          = data.azurerm_subnet.internal.id
+  #subnet_ids          = data.azurerm_subnet.internal.id
   os_type             = "Linux"
   restart_policy      = "Always"
+
+  network_profile_id = {
+    id = data.azurerm_subnet.internal.id
+  }
 
   container {
     name   = "tfc-agent"
